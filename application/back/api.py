@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import pika, redis
 import uuid
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 def send_message_to_queue(message):
@@ -20,7 +22,7 @@ def process_request(data, operation):
     message_id = str(uuid.uuid4())
     message = f"{message_id},{num1},{num2},{operation}"
     send_message_to_queue(message)
-    return jsonify({"status": "Message sent", "message": message})
+    return jsonify({"status": "Message sent","id": message_id, "message": message})
 
 @app.route('/api/addition', methods=['POST'])
 def addition():
