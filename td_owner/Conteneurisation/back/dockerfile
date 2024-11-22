@@ -1,0 +1,6 @@
+FROM debian:latest
+RUN apt update && apt install -y vim bash htop net-tools
+ENV OWNER="GARRAG"
+CMD ["sleep", "3600"]
+RUN useradd nonroot
+USER nonroot

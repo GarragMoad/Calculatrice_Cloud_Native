@@ -6,7 +6,7 @@ metadata:
     soft: nginx
   name: moadreplicataset
 spec:
-  replicas: 1                     # Nombre d'instance de la charge de travail à déployer
+  replicas: 1                     # Nombre d'instance de la charge de travail à déployer  toto
   selector:
     matchLabels:
       app: frontend
