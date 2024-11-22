@@ -1,87 +1,57 @@
 from flask import Flask, request, jsonify
-import redis
+import pika, redis
 import uuid
-import json
 
 app = Flask(__name__)
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
-# Connexion au serveur Redis
-r = redis.Redis(host='localhost', port=6379, db=0)
+def send_message_to_queue(message):
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    channel = connection.channel()
+    channel.queue_declare(queue='calcul')
+    channel.basic_publish(exchange='', routing_key='calcul', body=message)
+    connection.close()
 
-# Fonction utilitaire pour stocker et récupérer les résultats en JSON
-def store_result(operation_id, result):
-    r.set(operation_id, json.dumps(result))
+def process_request(data, operation):
+    if 'num1' not in data or 'num2' not in data:
+        return jsonify({"error": "Please provide num1 and num2"}), 400
+    num1 = data['num1']
+    num2 = data['num2']
+    message_id = str(uuid.uuid4())
+    message = f"{message_id},{num1},{num2},{operation}"
+    send_message_to_queue(message)
+    return jsonify({"status": "Message sent", "message": message})
 
-def retrieve_result(operation_id):
-    result = r.get(operation_id)
-    if result:
-        return json.loads(result)
-    return None
+@app.route('/api/addition', methods=['POST'])
+def addition():
+    data = request.get_json()
+    return process_request(data, 'addition')
 
-# Route pour l'addition
-@app.route('/api/v1/add', methods=['POST'])
-def add():
-    data = request.json
-    a, b = data.get('a'), data.get('b')
-    if a is None or b is None:
-        return jsonify({'error': 'Veuillez fournir deux nombres (a et b).'}), 400
+@app.route('/api/soustraction', methods=['POST'])
+def soustraction():
+    data = request.get_json()
+    return process_request(data, 'soustraction')
 
-    result = a + b
-    operation_id = str(uuid.uuid4())
-    store_result(operation_id, result)
-    return jsonify({'operation_id': operation_id}), 201
+@app.route('/api/multiplication', methods=['POST'])
+def multiplication():
+    data = request.get_json()
+    return process_request(data, 'multiplication')
 
-# Route pour la soustraction
-@app.route('/api/v1/subtract', methods=['POST'])
-def subtract():
-    data = request.json
-    a, b = data.get('a'), data.get('b')
-    if a is None or b is None:
-        return jsonify({'error': 'Veuillez fournir deux nombres (a et b).'}), 400
+@app.route('/api/division', methods=['POST'])
+def division():
+    data = request.get_json()
+    return process_request(data, 'division')
 
-    result = a - b
-    operation_id = str(uuid.uuid4())
-    store_result(operation_id, result)
-    return jsonify({'operation_id': operation_id}), 201
+@app.route('/api/result/<message_id>', methods=['GET'])
+def get_result(message_id):
+    result = redis_client.get(message_id)
+    if result is not None:
+        return jsonify({"result": result.decode('utf-8')})
+    return jsonify({"error": "Result not found"}), 404
 
-# Route pour la multiplication
-@app.route('/api/v1/multiply', methods=['POST'])
-def multiply():
-    data = request.json
-    a, b = data.get('a'), data.get('b')
-    if a is None or b is None:
-        return jsonify({'error': 'Veuillez fournir deux nombres (a et b).'}), 400
+@app.route('/')
+def index():
+    return "Welcome to the Flask API!"
 
-    result = a * b
-    operation_id = str(uuid.uuid4())
-    store_result(operation_id, result)
-    return jsonify({'operation_id': operation_id}), 201
-
-# Route pour la division
-@app.route('/api/v1/divide', methods=['POST'])
-def divide():
-    data = request.json
-    a, b = data.get('a'), data.get('b')
-    if a is None or b is None:
-        return jsonify({'error': 'Veuillez fournir deux nombres (a et b).'}), 400
-
-    if b == 0:
-        return jsonify({'error': 'Division par zéro impossible.'}), 400
-
-    result = a / b
-    operation_id = str(uuid.uuid4())
-    store_result(operation_id, result)
-    return jsonify({'operation_id': operation_id}), 201
-
-# Route pour récupérer le résultat d'une opération
-@app.route('/api/v1/result/<operation_id>', methods=['GET'])
-def get_result(operation_id):
-    result = retrieve_result(operation_id)
-    if result is None:
-        return jsonify({'error': 'ID de l\'opération non trouvé.'}), 404
-
-    return jsonify({'result': result}), 200
-
-# Lancement de l'application
 if __name__ == '__main__':
     app.run(debug=True)
