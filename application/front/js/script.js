@@ -58,7 +58,7 @@ function calculate() {
         fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ a, b }),
+          body: JSON.stringify({ "num1" : a, "num2" : b }),
         })
           .then(response => response.json())
           .then(data => {
