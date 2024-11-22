@@ -1,5 +1,7 @@
 // Récupère l'écran de la calculatrice
 const resultField = document.getElementById('result');
+const information = document.getElementById('information');
+var oper_identifiant = 0;
 
 // Ajoute un chiffre ou un opérateur à l'écran
 function appendValue(value) {
@@ -34,20 +36,20 @@ function calculate() {
         let url;
         switch (operator) {
           case '+':
-            url = '/api/v1/add';
+            url = 'http://127.0.0.1:5000/api/addition';
             break;
           case '-':
-            url = '/api/v1/subtract';
+            url = 'http://127.0.0.1:5000/api/soustraction';
             break;
           case '*':
-            url = '/api/v1/multiply';
+            url = 'http://127.0.0.1:5000/api/multiplication';
             break;
           case '/':
             if (b === 0) {
               resultField.value = 'Erreur: Division par 0';
               return;
             }
-            url = '/api/v1/divide';
+            url = 'http://127.0.0.1:5000/api/division';
             break;
           default:
             resultField.value = 'Erreur';
@@ -58,18 +60,16 @@ function calculate() {
         fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ a, b }),
+          body: JSON.stringify({"num1" : a, "num2" : b }),
         })
           .then(response => response.json())
           .then(data => {
-            if (data.id) {
-              // Affiche les détails de l'opération dans l'écran
-              resultField.value = `
-  ID: ${data.id}
-  Opération: ${data.type_operation}
-  a: ${data.a}, b: ${data.b}
-  Résultat: ${eval(`${data.a} ${operator} ${data.b}`)}
-  `.trim();
+            if (data) {
+                         oper_identifiant = data.id;
+                        // Affiche les détails de l'opération dans l'écran
+                        information.value = `
+                      "status": ${data.status}, "id de l'opération" : ${data.id} ,  "message de l'api" : ${data.message}
+                      `.trim();
             } else if (data.error) {
               resultField.value = `Erreur: ${data.error}`;
             }
@@ -84,3 +84,24 @@ function calculate() {
   
     resultField.value = 'Expression invalide';
   }
+ 
+
+  function getResult() {
+    const url = "http://127.0.0.1:5000/api/result/" + oper_identifiant;
+    fetch(url, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.result) {
+        // Affiche les détails de l'opération dans l'écran
+        information.value = `Le résultat est : ${data.result}`.trim();
+      } else if (data.error) {
+        resultField.value = `Erreur: ${data.error}`;
+      }
+    })
+    .catch(() => {
+      information.value = 'Erreur de connexion';
+    });
+}
