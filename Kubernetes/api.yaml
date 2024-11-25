@@ -18,8 +18,8 @@ spec:
         soft: python
     spec:
       containers:
-      - image: gcr.io/kuar-demo/kuard-amd64:blue
-        name: moadcontainerfromreplica
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/api-image-2024:Garrag-Bahand
+        name: moadcontainerapifromreplica
         ports:
         - name: http
           containerPort: 8080

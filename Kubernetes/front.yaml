@@ -18,9 +18,9 @@ spec:
         soft: nginx
     spec:
       containers:
-      - image: gcr.io/kuar-demo/kuard-amd64:blue
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/front-image-2024:Garrag-Bahand
         name: moadcontainerfromreplica
         ports:
         - name: http
-          containerPort: 8080
+          containerPort: 80
           protocol: TCP

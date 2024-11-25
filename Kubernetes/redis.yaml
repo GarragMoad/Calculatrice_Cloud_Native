@@ -4,7 +4,7 @@ metadata:
   labels:
     app: Bdd
     soft: redis
-  name: moadreplicataset-api
+  name: moadreplicaset-redis
 spec:
   replicas: 1                     # Nombre d'instance de la charge de travail à déployer
   selector:
@@ -18,9 +18,9 @@ spec:
         soft: redis
     spec:
       containers:
-      - image: gcr.io/kuar-demo/kuard-amd64:blue
-        name: moadcontainerfromreplica
+      - image: redis:alpine
+        name: moadrediscontainer
         ports:
-        - name: http
+        - name: redis
           containerPort: 8080
           protocol: TCP

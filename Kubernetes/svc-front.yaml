@@ -8,6 +8,6 @@ spec:
     soft: nginx
   ports:
   - protocol: TCP
-    port: 80                      # Port accessible à l'extérieur
-    targetPort: 8080              # Port sur lequel le conteneur écoute
+    port: 8080                     # Port accessible à l'extérieur
+    targetPort: 80            # Port sur lequel le conteneur écoute
   type: ClusterIP                 # Service accessible uniquement dans le cluster

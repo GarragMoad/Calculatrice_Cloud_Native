@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install --no-cache-dir flask flask-cors pika redis
 
 # Exposer le port sur lequel l'application s'exécute
-EXPOSE 5000
+EXPOSE 8080
 
 # Définir la commande par défaut pour exécuter l'application
 CMD ["python", "api.py"]
