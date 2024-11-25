@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: Bdd
+    soft: redis
+  name: moadreplicataset-api
+spec:
+  replicas: 1                     # Nombre d'instance de la charge de travail à déployer
+  selector:
+    matchLabels:
+          app: Bdd
+          soft: redis
+  template:                       # template: à partir de là, les attributs qui suivent seront ceux du Pod qui va être créé
+    metadata:
+      labels:
+        app: Bdd
+        soft: redis
+    spec:
+      containers:
+      - image: gcr.io/kuar-demo/kuard-amd64:blue
+        name: moadcontainerfromreplica
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP

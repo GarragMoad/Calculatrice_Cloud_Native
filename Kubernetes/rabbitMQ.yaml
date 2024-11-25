@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: message-queue
+    soft: rabbitmq
+  name: moadreplicataset-rabbitmq
+spec:
+  replicas: 1                     # Nombre d'instance de la charge de travail à déployer
+  selector:
+    matchLabels:
+      app: message-queue
+      soft: rabbitmq
+  template:                       # template: à partir de là, les attributs qui suivent seront ceux du Pod qui va être créé
+    metadata:
+      labels:
+        app: message-queue
+        soft: rabbitmq
+    spec:
+     containers:
+      - image: rabbitmq:3.12-management
+        name: rabbitmq
+        ports:
+        - name: amqp
+          containerPort: 5672
+          protocol: TCP
+        - name: management
+          containerPort: 15672
+          protocol: TCP
