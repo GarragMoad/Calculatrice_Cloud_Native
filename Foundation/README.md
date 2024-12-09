@@ -37,16 +37,15 @@ Cette infrastructure comprend :
 | Registre de Conteneurs  | (scaleway_registry_namespace.container_registry)
 +-------------------------+
 ```
-
-🚀Résultat de la Commande terraform plan
+## 🚀Résultat de la Commande terraform plan
 Le plan Terraform montre les actions à effectuer (créations uniquement).
 
-##Actions prévues :
-Ressources réseau : VPC, Load Balancers, IP
-Base de données : PostgreSQL pour dev et prod
-Cluster Kubernetes : Cluster + Pool de nœuds
-Registre de conteneurs : Namespace privé
-Voici un extrait complet du résultat de la commande terraform plan :
+#### Actions prévues :
+- Ressources réseau : VPC, Load Balancers, IP
+- Base de données : PostgreSQL pour dev et prod
+- Cluster Kubernetes : Cluster + Pool de nœuds
+- Registre de conteneurs : Namespace privé
+- Voici un extrait complet du résultat de la commande terraform plan :
 
 Terraform used the selected providers to generate the following execution plan. 
 Resource actions are indicated with the following symbols:
@@ -54,7 +53,7 @@ Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
-# scaleway_domain_record.dns["dev"] will be created
+### scaleway_domain_record.dns["dev"] will be created
 + resource "scaleway_domain_record" "dns" {
     + data            = (known after apply)
     + dns_zone        = "kiowy.net"
@@ -69,7 +68,7 @@ Terraform will perform the following actions:
     + type            = "A"
 }
 
-# scaleway_domain_record.dns["prod"] will be created
+### scaleway_domain_record.dns["prod"] will be created
 + resource "scaleway_domain_record" "dns" {
     + data            = (known after apply)
     + dns_zone        = "kiowy.net"
@@ -84,7 +83,7 @@ Terraform will perform the following actions:
     + type            = "A"
 }
 
-# scaleway_k8s_cluster.cluster will be created
+### scaleway_k8s_cluster.cluster will be created
 + resource "scaleway_k8s_cluster" "cluster" {
     + apiserver_url               = (known after apply)
     + cni                         = "cilium"
@@ -108,7 +107,7 @@ Terraform will perform the following actions:
     + open_id_connect_config      = (known after apply)
 }
 
-# scaleway_k8s_pool.pool will be created
+### scaleway_k8s_pool.pool will be created
 + resource "scaleway_k8s_pool" "pool" {
     + autohealing            = false
     + autoscaling            = false
@@ -135,7 +134,7 @@ Terraform will perform the following actions:
     + upgrade_policy         = (known after apply)
 }
 
-# scaleway_lb.loadbalancer["dev"] will be created
+### scaleway_lb.loadbalancer["dev"] will be created
 + resource "scaleway_lb" "loadbalancer" {
     + id                      = (known after apply)
     + ip_address              = (known after apply)
@@ -151,7 +150,7 @@ Terraform will perform the following actions:
     + zone                    = (known after apply)
 }
 
-# scaleway_lb.loadbalancer["prod"] will be created
+### scaleway_lb.loadbalancer["prod"] will be created
 + resource "scaleway_lb" "loadbalancer" {
     + id                      = (known after apply)
     + ip_address              = (known after apply)
@@ -167,7 +166,7 @@ Terraform will perform the following actions:
     + zone                    = (known after apply)
 }
 
-# scaleway_lb_ip.lb_ip["dev"] will be created
+### scaleway_lb_ip.lb_ip["dev"] will be created
 + resource "scaleway_lb_ip" "lb_ip" {
     + id              = (known after apply)
     + ip_address      = (known after apply)
@@ -180,7 +179,7 @@ Terraform will perform the following actions:
     + zone            = (known after apply)
 }
 
-# scaleway_lb_ip.lb_ip["prod"] will be created
+### scaleway_lb_ip.lb_ip["prod"] will be created
 + resource "scaleway_lb_ip" "lb_ip" {
     + id              = (known after apply)
     + ip_address      = (known after apply)
@@ -193,7 +192,7 @@ Terraform will perform the following actions:
     + zone            = (known after apply)
 }
 
-# scaleway_rdb_instance.db["dev"] will be created
+### scaleway_rdb_instance.db["dev"] will be created
 + resource "scaleway_rdb_instance" "db" {
     + backup_same_region        = (known after apply)
     + backup_schedule_frequency = (known after apply)
@@ -219,7 +218,7 @@ Terraform will perform the following actions:
     + logs_policy               = (known after apply)
 }
 
-# scaleway_rdb_instance.db["prod"] will be created
+### scaleway_rdb_instance.db["prod"] will be created
 + resource "scaleway_rdb_instance" "db" {
     + backup_same_region        = (known after apply)
     + backup_schedule_frequency = (known after apply)
@@ -245,7 +244,7 @@ Terraform will perform the following actions:
     + logs_policy               = (known after apply)
 }
 
-# scaleway_registry_namespace.container_registry will be created
+### scaleway_registry_namespace.container_registry will be created
 + resource "scaleway_registry_namespace" "container_registry" {
     + description     = "Registry pour les conteneurs de l'application Calculatrice Native"
     + endpoint        = (known after apply)
@@ -257,7 +256,7 @@ Terraform will perform the following actions:
     + region          = (known after apply)
 }
 
-# scaleway_vpc_private_network.pn will be created
+### scaleway_vpc_private_network.pn will be created
 + resource "scaleway_vpc_private_network" "pn" {
     + created_at      = (known after apply)
     + id              = (known after apply)
