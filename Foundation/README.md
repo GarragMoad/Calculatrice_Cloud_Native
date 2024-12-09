@@ -12,7 +12,7 @@ Cette infrastructure comprend :
 
 ## 🛠️ Schéma Descriptif
 
-```plaintext
+
 +-------------------------+
 |        VPC Privée       | (scaleway_vpc_private_network.pn)
 +-------------------------+
@@ -36,6 +36,7 @@ Cette infrastructure comprend :
 +-------------------------+
 | Registre de Conteneurs  | (scaleway_registry_namespace.container_registry)
 +-------------------------+
+
 
 🚀Résultat de la Commande terraform plan
 Le plan Terraform montre les actions à effectuer (créations uniquement).
