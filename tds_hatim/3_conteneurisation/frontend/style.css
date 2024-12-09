@@ -1,0 +1,16 @@
+h1 {
+    color: brown;
+    text-align: center;
+}
+
+p {
+    color: blue;
+}
+ #div1 {
+    display: flex;
+    justify-content: center;
+ }
+ #div2 {
+    display: flex;
+    justify-content: center;
+ }
