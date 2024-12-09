@@ -1,3 +1,37 @@
+# Foundation Infrastructure avec Terraform
+
+Ce dossier contient la configuration Terraform permettant de déployer les fondations pour l'application **Calculatrice Cloud Native**. Cette infrastructure comprend un réseau privé, des bases de données, un cluster Kubernetes, des load balancers, et un registre de conteneurs.
+
+---
+
+## Schéma Descriptif
+
+```plaintext
++-------------------------+
+|        VPC Privée       | (scaleway_vpc_private_network.pn)
++-------------------------+
+          |
++------------------+       +------------------+       +------------------+
+|   Base de Données|       |  Load Balancer   |       |   DNS Record     |
+|  (RDB Instance)  |       | (scaleway_lb)    |       | (scaleway_domain|
+|   - db-dev       |       |  - lb-dev        |       |    _record)      |
+|   - db-prod      |       |  - lb-prod       |       |                  |
++------------------+       +------------------+       +------------------+
+
+          |
++-------------------------+
+|      Cluster K8s        | (scaleway_k8s_cluster.cluster)
+|                         |
+|  + Pool de nœuds       | (scaleway_k8s_pool.pool)
+|    - 3 instances        |
++-------------------------+
+
+          |
++-------------------------+
+| Registre de Conteneurs  | (scaleway_registry_namespace.container_registry)
++-------------------------+
+
+
 Nous avons choisi d'utiliser un bloc locals dans main.tf pour définir des variables locales qui incluront les spécifications de chaque environnement. Ensuite, on utilise une boucle pour créer les instances (DB , loadBalancer et record DNS) de manière dynamique.
 
 Résultat de la commande terraform plan: 
