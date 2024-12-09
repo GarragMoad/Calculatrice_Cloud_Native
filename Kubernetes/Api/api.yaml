@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: api
+    soft: python
+  name: moadreplicataset-api
+spec:
+  replicas: 1                     # Nombre d'instance de la charge de travail à déployer
+  selector:
+    matchLabels:
+          app: api
+          soft: python
+  template:                       # template: à partir de là, les attributs qui suivent seront ceux du Pod qui va être créé
+    metadata:
+      labels:
+        app: api
+        soft: python
+    spec:
+      containers:
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/api-image-2024-v2:Garrag-Bahand
+        name: moadcontainerapifromreplica
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP

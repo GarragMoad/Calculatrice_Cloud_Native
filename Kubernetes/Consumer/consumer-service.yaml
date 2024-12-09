@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: moadservice-consumer
+spec:
+  selector:
+    app: consumer       # Correspond aux labels définis dans le ReplicaSet
+    soft: python
+  ports:
+  - protocol: TCP
+    port: 80                    # Port accessible à l'extérieur
+    targetPort: 8080            # Port sur lequel le conteneur écoute
+  type: ClusterIP                 # Service accessible uniquement dans le cluster

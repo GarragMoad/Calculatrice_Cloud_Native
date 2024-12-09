@@ -5,10 +5,10 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+redis_client = redis.StrictRedis(host='redis-service', port=6379, db=0)
 
 def send_message_to_queue(message):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq-service'))
     channel = connection.channel()
     channel.queue_declare(queue='calcul')
     channel.basic_publish(exchange='', routing_key='calcul', body=message)
@@ -56,4 +56,4 @@ def index():
     return "Welcome to the Flask API!"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True , host="0.0.0.0")

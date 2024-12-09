@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: moadservice-api
+spec:
+  selector:
+    app: api       # Correspond aux labels définis dans le ReplicaSet
+    soft: python
+  ports:
+  - protocol: TCP
+    port: 5000                   # Port accessible à l'extérieur
+    targetPort: 5000            # Port sur lequel le conteneur écoute
+  type: ClusterIP                 # Service accessible uniquement dans le cluster

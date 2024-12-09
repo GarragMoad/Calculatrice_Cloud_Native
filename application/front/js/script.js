@@ -36,20 +36,20 @@ function calculate() {
         let url;
         switch (operator) {
           case '+':
-            url = 'http://127.0.0.1:5000/api/addition';
+            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
             break;
           case '-':
-            url = 'http://127.0.0.1:5000/api/soustraction';
+            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
             break;
           case '*':
-            url = 'http://127.0.0.1:5000/api/multiplication';
+            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
             break;
           case '/':
             if (b === 0) {
               resultField.value = 'Erreur: Division par 0';
               return;
             }
-            url = 'http://127.0.0.1:5000/api/division';
+            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
             break;
           default:
             resultField.value = 'Erreur';
@@ -87,7 +87,7 @@ function calculate() {
  
 
   function getResult() {
-    const url = "http://127.0.0.1:5000/api/result/" + oper_identifiant;
+    const url = "http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/result/" + oper_identifiant;
     fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },

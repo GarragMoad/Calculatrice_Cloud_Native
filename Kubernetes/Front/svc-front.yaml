@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: moadservice-front
+spec:
+  selector:
+    app: Calculatrice-front       # Correspond aux labels définis dans le ReplicaSet
+    soft: nginx
+  ports:
+  - protocol: TCP
+    port: 8080                     # Port accessible à l'extérieur
+    targetPort: 80            # Port sur lequel le conteneur écoute
+  type: ClusterIP                 # Service accessible uniquement dans le cluster
