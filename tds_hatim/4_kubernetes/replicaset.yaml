@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: frontend
+    soft: nginx
+  name: hatimreplicaset
+spec:
+  replicas: 1                 
+  selector:
+    matchLabels:
+      app: frontend
+      soft: nginx
+  template:                      
+    metadata:
+      labels:
+        app: frontend
+        soft: nginx
+    spec:
+      containers:
+      - image: gcr.io/kuar-demo/kuard-amd64:blue
+        name: hatimcontainerfromreplica
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
