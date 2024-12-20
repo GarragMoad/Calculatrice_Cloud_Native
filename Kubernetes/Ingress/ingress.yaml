@@ -6,8 +6,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: ""   ## DNS => nom de domaine => 35.205.81.63
+  - host: "calculatrice-garrag-bahand.poyltech-dijon.kiowy.net"   
     http:
       paths:
       - path: /
@@ -15,5 +16,12 @@ spec:
         backend:
           service:
             name: moadservice-front
-            port:
+            port: 
               number: 8080
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: moadservice-api
+            port:
+              number: 5000

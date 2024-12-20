@@ -36,20 +36,20 @@ function calculate() {
         let url;
         switch (operator) {
           case '+':
-            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
+            url = 'http://calculatrice-garrag-bahand.poyltech-dijon.kiowy.net/api/addition';
             break;
           case '-':
-            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
+            url = 'http://calculatrice-garrag-bahand.poyltech-dijon.kiowy.net/api/soustraction';
             break;
           case '*':
-            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
+            url = 'http://calculatrice-garrag-bahand.poyltech-dijon.kiowy.net/api/multiplication';
             break;
           case '/':
             if (b === 0) {
               resultField.value = 'Erreur: Division par 0';
               return;
             }
-            url = 'http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/soustraction';
+            url = 'http://calculatrice-garrag-bahand.poyltech-dijon.kiowy.net/api/division';
             break;
           default:
             resultField.value = 'Erreur';
@@ -87,7 +87,7 @@ function calculate() {
  
 
   function getResult() {
-    const url = "http://moadservice-api.garrag-bahand.svc.cluster.local:5000/api/result/" + oper_identifiant;
+    const url = "http://calculatrice-garrag-bahand.poyltech-dijon.kiowy.net/api/result/" + oper_identifiant;
     fetch(url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },

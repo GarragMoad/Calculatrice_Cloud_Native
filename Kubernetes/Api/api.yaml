@@ -9,8 +9,8 @@ spec:
   replicas: 1                     # Nombre d'instance de la charge de travail à déployer
   selector:
     matchLabels:
-          app: api
-          soft: python
+      app: api
+      soft: python
   template:                       # template: à partir de là, les attributs qui suivent seront ceux du Pod qui va être créé
     metadata:
       labels:
@@ -20,6 +20,10 @@ spec:
       containers:
       - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/api-image-2024-v2:Garrag-Bahand
         name: moadcontainerapifromreplica
+        resources:                # L'indentation a été corrigée ici
+          requests:
+            memory: "56Mi"        # Assurez-vous de spécifier la bonne unité (Mi pour Mégabytes)
+            cpu: "50m"            # '50m' signifie 50 milli-CPU
         ports:
         - name: http
           containerPort: 5000
