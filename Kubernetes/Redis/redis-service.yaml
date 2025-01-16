@@ -9,5 +9,5 @@ spec:
   ports:
   - protocol: TCP
     port: 6379                    # Port accessible à l'extérieur
-    targetPort: 8080            # Port sur lequel le conteneur écoute
+    targetPort: 6379            # Port sur lequel le conteneur écoute
   type: ClusterIP                 # Service accessible uniquement dans le cluster

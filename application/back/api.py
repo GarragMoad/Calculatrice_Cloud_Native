@@ -4,7 +4,7 @@ import uuid
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST"]}})
 redis_client = redis.StrictRedis(host='redis-service', port=6379, db=0)
 
 def send_message_to_queue(message):
@@ -51,9 +51,9 @@ def get_result(message_id):
         return jsonify({"result": result.decode('utf-8')})
     return jsonify({"error": "Result not found"}), 404
 
-@app.route('/')
+@app.route('/api/')
 def index():
-    return "Welcome to the Flask API!"
+    return "Welcome to the Flask API GARRAG!"
 
 if __name__ == '__main__':
     app.run(debug=True , host="0.0.0.0")

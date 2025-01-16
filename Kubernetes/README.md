@@ -127,4 +127,8 @@ Voici un schéma simplifié des composants et leur interaction dans le cluster K
    kubectl apply -f Kubernetes/Redis/
    kubectl apply -f Kubernetes/Ingress/
 
+## Pourquoi l'application ne répond pas?
+
+Nous avons un erreur http 405 signifie que le serveur a reçu une requête avec une méthode HTTP (comme GET, POST, PUT, ou DELETE), mais que cette méthode n'est pas autorisée pour l'URL demandée.
+
 

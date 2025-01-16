@@ -22,5 +22,5 @@ spec:
         name: moadrediscontainer
         ports:
         - name: redis
-          containerPort: 8080
+          containerPort: 6379
           protocol: TCP

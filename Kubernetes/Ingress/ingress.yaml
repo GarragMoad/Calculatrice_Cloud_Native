@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: moad-ingress
   namespace: garrag-bahand
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
@@ -18,7 +16,7 @@ spec:
             name: moadservice-front
             port: 
               number: 8080
-      - path: /api
+      - path: /api/
         pathType: Prefix
         backend:
           service:

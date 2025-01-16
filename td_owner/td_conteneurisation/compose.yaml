@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/api-image-2024-v2:Garrag-Bahand
+    ports:
+      - "5000:5000"
+    environment:
+      - environment=dev
+    networks:
+      - myapp-network
+
+  frontend:
+    image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/front-image-2024:GarragBahand
+    ports:
+      - "8888:80"
+    environment:
+      - environment=test
+    networks:
+      - myapp-network
+
+networks:
+  myapp-network: {}

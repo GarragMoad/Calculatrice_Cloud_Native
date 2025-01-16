@@ -18,12 +18,8 @@ spec:
         soft: nginx
     spec:
       containers:
-      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/front-image-2024:GarragBahand
+      - image: europe-west1-docker.pkg.dev/polytech-dijon/polytech-dijon/front-image-2024-latest:Garrag-Bahand
         name: moadcontainerfromreplica
-        resources:                # Correction ici: 'resources' et non 'ressources'
-          requests:
-            memory: "56Mi"        # Assurez-vous de spécifier la bonne unité (Mi pour Mégabytes)
-            cpu: "50m"            # '50m' signifie 50 milli-CPU
         ports:
         - name: http
           containerPort: 80
