@@ -118,14 +118,6 @@ Ce répertoire est organisé en sous-dossiers pour chaque composant :
 
 ---
 
-## 📌 Schéma Descriptif
-
-Voici un schéma simplifié des composants et leur interaction dans le cluster Kubernetes :  
-
-![Schéma des interactions](./schema.png)
-
----
-
 ## 📤 Comment Déployer ?
 1. **Déployer les composants** :
    ```bash
@@ -140,7 +132,7 @@ Voici un schéma simplifié des composants et leur interaction dans le cluster K
    kubectl apply -f Kubernetes/Redis/redis.yaml
    kubectl apply -f Kubernetes/Redis/redis-service.yaml
    kubectl apply -f Kubernetes/Ingress/ingress.yaml
-   
+
 # ❗ Erreurs Rencontrées
 
 ## 🛠️ Communication entre le Front et l'API
